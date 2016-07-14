@@ -1,0 +1,6 @@
+#ifndef WITHOUT_REPLACEMENT_IMPL_HEADER_GUARD
+#define WITHOUT_REPLACEMENT_IMPL_HEADER_GUARD
+namespace permanent
+{
+}
+#endif

@@ -1,0 +1,16 @@
+Package: permanent
+Type: Package
+Title: Monte Carlo methods for estimating the permanent
+Version: 0.1
+Date: 2015-05-14
+Author: Rohan Shah
+Maintainer: Rohan Shah <cran@bookshah.com>
+Description: Monte Carlo methods for estimating the permanent
+License: GPL v3
+LazyData: No
+Depends: Rmpfr
+Collate:
+	'onLoad.R'
+	'classes.R'
+	'importanceSampling.R'
+	'Rcpp_exceptions.R'
