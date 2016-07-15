@@ -71,11 +71,11 @@ namespace permanent
 			possibility& pos = possibilities[i];
 			if(pos.previousEntry == pos.newEntry)
 			{
-				samplingArgs.weights[i] = alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry));
+				samplingArgs.weights[i] = alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)) / (dimension*(dimension - 1));
 			}
 			else 
 			{
-				samplingArgs.weights[i] = std::fabs(matrix(pos.previousEntry, pos.newEntry));
+				samplingArgs.weights[i] = std::fabs(matrix(pos.previousEntry, pos.newEntry)) / dimension;
 			}
 		}
 
@@ -194,7 +194,14 @@ namespace permanent
 								possibilities.push_back(pos);
 								if(j == k || usedRows[pos.newEntry + dimension * i])
 								{
-									samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)));
+									if(dimension - 2 != permutationCounter)
+									{
+										samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry))/ (dimension - permutationCounter - 2));
+									}
+									else
+									{
+										samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)));
+									}
 								}
 								else
 								{
@@ -215,7 +222,14 @@ namespace permanent
 							possibilities.push_back(pos);
 							if(j == previousEntry[i] || usedRows[pos.newEntry + dimension * i])
 							{
-								samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)));
+								if(dimension - 2 != permutationCounter)
+								{
+									samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)) / (dimension - permutationCounter - 2));
+								}
+								else
+								{
+									samplingArgs.weights.push_back(weights[i] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry)));
+								}
 							}
 							else
 							{
