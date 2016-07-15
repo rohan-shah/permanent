@@ -6,11 +6,13 @@
 #endif
 #include "importanceSampling.h"
 #include "withoutReplacement.h"
+#include "withoutReplacement2.h"
 extern "C" const char* package_name = "permanent";
 R_CallMethodDef callMethods[] = 
 {
 	{"importanceSampling", (DL_FUNC)&permanent::importanceSampling, 4},
 	{"withoutReplacement", (DL_FUNC)&permanent::withoutReplacement, 4},
+	{"withoutReplacement2", (DL_FUNC)&permanent::withoutReplacement2, 4},
 	{NULL, NULL, 0}
 };
 RcppExport void R_init_permanent(DllInfo *info)

@@ -72,6 +72,12 @@ namespace permanent
 					if(availableColumns[columnCounter] == previous) probabilities[columnCounter] *= alpha;
 					sum += probabilities[columnCounter];
 				}
+				//Maybe we end up selecting a zero, which can happen at the last step. In which case the ratio is zero. 
+				if(sum == 0)
+				{
+					weight = 0;
+					goto nextStep;
+				}
 				boost::random::uniform_real_distribution<double> drawNext(0, sum);
 				double sample = drawNext(randomSource);
 				int sampledColumn = -1;
@@ -104,6 +110,7 @@ namespace permanent
 					previous = sampledColumn;
 				}
 			}
+		nextStep:
 			sum += weight;
 			sumSquared += weight*weight;
 		}

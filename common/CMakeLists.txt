@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
-set(Headers withoutReplacementImpl.h importanceSamplingImpl.h)
-set(CppFiles withoutReplacementImpl.cpp importanceSamplingImpl.cpp)
+set(Headers withoutReplacementImpl.h importanceSamplingImpl.h withoutReplacement2Impl.h)
+set(CppFiles withoutReplacementImpl.cpp importanceSamplingImpl.cpp withoutReplacement2Impl.cpp)
 add_library(permanentCommon STATIC ${CppFiles} ${Headers})
 target_link_libraries(permanentCommon PUBLIC ${Boost_LIBRARIES} mpfr sampling)
 target_include_directories(permanentCommon PUBLIC ${Boost_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR})

@@ -14,4 +14,5 @@ Collate:
 	'classes.R'
 	'importanceSampling.R'
 	'withoutReplacement.R'
+	'withoutReplacement2.R'
 	'Rcpp_exceptions.R'
