@@ -30,7 +30,7 @@ namespace permanent
 				columnSums[column] += std::fabs(matrix(row, column));
 			}
 		}
-		std::vector<double> currentRowSums(dimension), currentColumnSums(dimension);
+		std::vector<double> currentColumnSums(dimension);
 		std::vector<int> availableRows(dimension), availableColumns(dimension);
 		std::vector<bool> usedRows(dimension);
 		std::vector<double> probabilities;
@@ -39,7 +39,6 @@ namespace permanent
 		for(int sampleCounter = 0; sampleCounter < n; sampleCounter++)
 		{
 			weight = 1;
-			std::copy(rowSums.begin(), rowSums.end(), currentRowSums.begin());
 			std::copy(columnSums.begin(), columnSums.end(), currentColumnSums.begin());
 			availableRows.resize(dimension);
 			availableColumns.resize(dimension);

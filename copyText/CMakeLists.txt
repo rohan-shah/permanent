@@ -7,7 +7,7 @@ else()
 endif()
 
 find_package(Rcpp REQUIRED)
-set(RFiles R/classes.R R/importanceSampling.R R/onLoad.R)
+set(RFiles R/classes.R R/importanceSampling.R R/onLoad.R R/withoutReplacement.R)
 set(RPackageFiles DESCRIPTION NAMESPACE ${RFiles})
 
 #Find location of Rcpp_exceptions.R 

@@ -11,7 +11,7 @@ endif()
 
 #Find boost packages
 find_package(Boost 1.53.0 REQUIRED)
-
+find_package(sampling REQUIRED)
 if(WIN32)
 	find_package(mpfr)
 	find_package(mpir)

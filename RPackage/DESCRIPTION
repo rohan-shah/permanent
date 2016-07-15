@@ -13,4 +13,5 @@ Collate:
 	'onLoad.R'
 	'classes.R'
 	'importanceSampling.R'
+	'withoutReplacement.R'
 	'Rcpp_exceptions.R'
