@@ -1,3 +1,4 @@
 export(importanceSampling)
 export(withoutReplacement)
 export(withoutReplacement2)
+export(withoutReplacement3)

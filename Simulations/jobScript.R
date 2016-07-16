@@ -188,6 +188,21 @@ if(method == "IS")
 		file.rename(from = tmpFile, to = outputFile)
 		counter <- counter + 1
 	}
+} else if(method == "WOR3")
+{
+	counter <- 1
+	if(file.exists(outputFile))
+	{
+		load(outputFile)
+		counter <- length(results)+1
+	} else results <- list()
+	while(counter < nReps + 1)
+	{
+		results[[counter]] <- withoutReplacement3(matrix = squareMatrix, seed = SCENARIO_INDEX + counter * 100000L, n = n, alpha = alpha)
+		save(results, file = tmpFile)
+		file.rename(from = tmpFile, to = outputFile)
+		counter <- counter + 1
+	}
 } else
 {
 	stop("Unrecognized method")

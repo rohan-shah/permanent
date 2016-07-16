@@ -15,4 +15,5 @@ Collate:
 	'importanceSampling.R'
 	'withoutReplacement.R'
 	'withoutReplacement2.R'
+	'withoutReplacement3.R'
 	'Rcpp_exceptions.R'

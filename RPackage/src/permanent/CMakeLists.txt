@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
-set(CppFiles register.cpp importanceSampling.cpp withoutReplacement.cpp withoutReplacement2.cpp)
-set(HeaderFiles importanceSampling.h withoutReplacement.h withoutReplacement2.h)
+set(CppFiles register.cpp importanceSampling.cpp withoutReplacement.cpp withoutReplacement2.cpp withoutReplacement3.cpp)
+set(HeaderFiles importanceSampling.h withoutReplacement.h withoutReplacement2.h withoutReplacement3.h)
 add_library(permanentRPackage SHARED ${CppFiles} ${HeaderFiles})
 target_link_libraries(permanentRPackage PUBLIC permanentCommon Rcpp)
 set_target_properties(permanentRPackage PROPERTIES OUTPUT_NAME "permanent")

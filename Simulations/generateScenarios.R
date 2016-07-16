@@ -1,4 +1,4 @@
-methods <- c("IS", "WOR", "WOR2")
+methods <- c("IS", "WOR", "WOR2", "WOR3")
 matrices <- c("A1", "A2", "A3", "A4", "A5", "A6")
 scenarios <- expand.grid(method = methods, matrix = matrices, n = 20000, stringsAsFactors=FALSE)
 
