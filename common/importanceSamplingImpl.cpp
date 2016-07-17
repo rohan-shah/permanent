@@ -65,35 +65,50 @@ namespace permanent
 				usedRows[previous] = true;
 				probabilities.resize(availableColumns.size());
 				double sum = 0;
+				int infiniteCount = 0, infiniteIndex = -1;;
 				for(int columnCounter = 0; columnCounter < (int)availableColumns.size(); columnCounter++)
 				{
 					double value = std::fabs(matrix(previous, availableColumns[columnCounter]));
 					probabilities[columnCounter] = value / (columnSums[availableColumns[columnCounter]] - value);
 					if(availableColumns[columnCounter] == previous) probabilities[columnCounter] *= alpha;
+					if(probabilities[columnCounter] == std::numeric_limits<double>::infinity())
+					{
+						infiniteCount++;
+						infiniteIndex = columnCounter;
+					}
 					sum += probabilities[columnCounter];
 				}
 				//Maybe we end up selecting a zero, which can happen at the last step. In which case the ratio is zero. 
-				if(sum == 0)
+				if(sum == 0 || infiniteCount > 1)
 				{
 					weight = 0;
 					goto nextStep;
 				}
-				boost::random::uniform_real_distribution<double> drawNext(0, sum);
-				double sample = drawNext(randomSource);
 				int sampledColumn = -1;
 				int sampledIndexWithinAvailable = -1;
 				double sampleProbability = -1;
-				double accumulated = 0;
-				for(int columnCounter = 0; columnCounter < (int)availableColumns.size(); columnCounter++)
+				if(infiniteCount == 1)
 				{
-					if(sample <= accumulated + probabilities[columnCounter])
+					sampleProbability = 1;
+					sampledIndexWithinAvailable = infiniteIndex;
+					sampledColumn = availableColumns[infiniteIndex];
+				}
+				else
+				{
+					boost::random::uniform_real_distribution<double> drawNext(0, sum);
+					double sample = drawNext(randomSource);
+					double accumulated = 0;
+					for(int columnCounter = 0; columnCounter < (int)availableColumns.size(); columnCounter++)
 					{
-						sampledColumn = availableColumns[columnCounter];
-						sampleProbability = probabilities[columnCounter] / sum;
-						sampledIndexWithinAvailable = columnCounter;
-						break;
+						if(sample <= accumulated + probabilities[columnCounter])
+						{
+							sampledColumn = availableColumns[columnCounter];
+							sampleProbability = probabilities[columnCounter] / sum;
+							sampledIndexWithinAvailable = columnCounter;
+							break;
+						}
+						accumulated += probabilities[columnCounter];
 					}
-					accumulated += probabilities[columnCounter];
 				}
 
 				std::swap(availableColumns[sampledIndexWithinAvailable], availableColumns.back());

@@ -13,7 +13,7 @@ for(i in 1:nrow(scenarios))
 	{
 		rm(results)
 		load(resultFile)
-		if(length(results) != 100)
+		if(length(results) != scenarios[i, "nReps"])
 		{
 			submit <- TRUE
 		}

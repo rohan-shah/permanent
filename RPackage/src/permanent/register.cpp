@@ -8,6 +8,8 @@
 #include "withoutReplacement.h"
 #include "withoutReplacement2.h"
 #include "withoutReplacement3.h"
+#include "withoutReplacement4.h"
+#include "exact.h"
 extern "C" const char* package_name = "permanent";
 R_CallMethodDef callMethods[] = 
 {
@@ -15,6 +17,8 @@ R_CallMethodDef callMethods[] =
 	{"withoutReplacement", (DL_FUNC)&permanent::withoutReplacement, 4},
 	{"withoutReplacement2", (DL_FUNC)&permanent::withoutReplacement2, 4},
 	{"withoutReplacement3", (DL_FUNC)&permanent::withoutReplacement3, 4},
+	{"withoutReplacement4", (DL_FUNC)&permanent::withoutReplacement4, 4},
+	{"exact", (DL_FUNC)&permanent::exact, 2},
 	{NULL, NULL, 0}
 };
 RcppExport void R_init_permanent(DllInfo *info)

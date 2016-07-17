@@ -16,4 +16,6 @@ Collate:
 	'withoutReplacement.R'
 	'withoutReplacement2.R'
 	'withoutReplacement3.R'
+	'withoutReplacement4.R'
+	'exact.R'
 	'Rcpp_exceptions.R'
