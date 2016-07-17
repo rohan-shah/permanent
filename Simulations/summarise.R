@@ -31,17 +31,12 @@ varianceFunc <- function(x)
 	{
 		return(NA)
 	}
-	if(class(x[[1]]) == "withoutReplacementResult")
-	{
-		values <- do.call(c, lapply(x, function(y) y@estimate))
-		firstMoment <- sum(values) / x[[1]]@n
-		secondMoment <- sum(values * values) / x[[1]]@n
-		return(as.numeric(secondMoment - firstMoment * firstMoment))
-	}
-	else 
-	{
-		return(as.numeric(mean(do.call(c, lapply(x, function(y) y@estimatedVariance)))))
-	}
+	values <- do.call(c, lapply(x, function(y) y@estimate))
+	#Inclease precision
+	values <- mpfr(values, prec = 3*getPrec(values))
+	firstMoment <- sum(values) / length(x)
+	secondMoment <- sum(values * values) / length(x)
+	return(as.numeric(secondMoment - firstMoment * firstMoment))
 }
 variances <- do.call(c, lapply(allResults, varianceFunc))
 workNormalizedVariance <- as.numeric(variances * averageSecondsPerRun)

@@ -146,6 +146,17 @@ if(matrix == "A1")
 		squareMatrix[2*i+1, 2*i+1] <- 80
                 squareMatrix[2*i+2, 2*i+1] <- squareMatrix[2*i+1, 2*i+2] <- 10
 	}
+} else if(matrix == "pathological18")
+{
+	dimension <- 18
+	squareMatrix <- matrix(sample(0, replace=TRUE, dimension*dimension), dimension, dimension)
+	for(i in 0:5)
+	{
+		squareMatrix[3*i+1, 3*i+1] <- 20
+		squareMatrix[3*i+2, 3*i+2] <- 1
+		squareMatrix[3*i+2, 3*i+1] <- squareMatrix[3*i+1, 3*i+2] <- 10
+		squareMatrix[3*i+2, 3*i+3] <- squareMatrix[3*i+1, 3*i+3] <- squareMatrix[3*i+3, 3*i+2] <- squareMatrix[3*i+3, 3*i+1] <- squareMatrix[3*i+3, 3*i+3] <- 1
+	}
 } else
 {
 	stop("Unknown graph")

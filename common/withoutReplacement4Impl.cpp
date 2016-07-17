@@ -215,7 +215,8 @@ namespace permanent
 						int infiniteCount = 0, infiniteIndex = -1;
 						for(int k = 0; k < dimension - permutationCounter - 1; k++)
 						{
-							if(currentColumnSums[dimension*i + pos.newEntry] == std::fabs(matrix(availableRows[(dimension - permutationCounter - 1) * i], availableColumns[(dimension - permutationCounter - 1) * i + k])))
+							int previousEntry = availableRows[(dimension - permutationCounter - 1) * i], newEntry = availableColumns[(dimension - permutationCounter - 1) * i + k];
+							if(currentColumnSums[dimension*i + newEntry] == std::fabs(matrix(previousEntry, newEntry)))
 							{
 								infiniteCount++;
 								infiniteIndex = k;
@@ -261,14 +262,44 @@ namespace permanent
 					}
 					else
 					{
+						int infiniteCount = 0, infiniteIndex = -1;
 						for(int j = 0; j < dimension - permutationCounter - 1; j++)
+						{
+							int newEntry = availableColumns[(dimension - permutationCounter - 1) * i + j];
+							if(currentColumnSums[dimension*i + newEntry] == std::fabs(matrix(previousEntry[i], newEntry)))
+							{
+								infiniteCount++;
+								infiniteIndex = j;
+							}
+						}
+						if(infiniteCount == 0)
+						{
+							for(int j = 0; j < dimension - permutationCounter - 1; j++)
+							{
+								possibility pos;
+								pos.parent = i;
+								pos.previousEntry = previousEntry[i];
+								pos.newEntry = availableColumns[(dimension - permutationCounter - 1) * i + j];
+								possibilities.push_back(pos);
+								if(pos.newEntry == previousEntry[i] || usedRows[pos.newEntry + dimension * i])
+								{
+									samplingArgs.weights.push_back(sizeVariables[pos.parent] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry))/ (currentColumnSums[dimension*i + pos.newEntry] - std::fabs(matrix(pos.previousEntry, pos.newEntry))));
+								}
+								else
+								{
+									samplingArgs.weights.push_back(sizeVariables[pos.parent] * std::fabs(matrix(pos.previousEntry, pos.newEntry))/ (currentColumnSums[dimension*i + pos.newEntry] - std::fabs(matrix(pos.previousEntry, pos.newEntry))));
+								}
+								nonZeroSamplingWeights += (samplingArgs.weights.back() != 0);
+							}
+						}
+						else if(infiniteCount == 1)
 						{
 							possibility pos;
 							pos.parent = i;
 							pos.previousEntry = previousEntry[i];
-							pos.newEntry = availableColumns[(dimension - permutationCounter - 1) * i + j];
+							pos.newEntry = availableColumns[(dimension - permutationCounter - 1) * i + infiniteIndex];
 							possibilities.push_back(pos);
-							if(j == previousEntry[i] || usedRows[pos.newEntry + dimension * i])
+							if(pos.newEntry == previousEntry[i] || usedRows[pos.newEntry + dimension * i])
 							{
 								samplingArgs.weights.push_back(sizeVariables[pos.parent] * alpha * std::fabs(matrix(pos.previousEntry, pos.newEntry))/ (currentColumnSums[dimension*i + pos.newEntry] - std::fabs(matrix(pos.previousEntry, pos.newEntry))));
 							}
